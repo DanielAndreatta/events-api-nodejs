@@ -1,0 +1,11 @@
+
+POST http://localhost:3000/api/events
+Content-Type : application/json
+
+{
+    "title": "evento numero 1",
+    "description": "este es el evento numero 1" ,
+    "dates": [ "2021-07-28T22:00:00.081+00:00" , "2021-07-29T22:00:00.081+00:00"],
+    "place": "en la plaza 25 de mayo",
+    "image": "http://#"
+}
