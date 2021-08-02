@@ -1,0 +1,2 @@
+GET http://localhost:3000/api/events-login?limit=2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMDc2ODUxMzJkYzQzMjQ5OGU1MGY1YSIsInVzZXJuYW1lIjoiYXpheGhlbCIsImlhdCI6MTYyNzg3NTU3MiwiZXhwIjoxNjI4NDgwMzcyfQ.fQKPYZXWSz6Vu2XvzoxE907tTxOTvx9QtZli-N4WGQA

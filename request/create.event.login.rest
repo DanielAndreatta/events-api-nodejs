@@ -1,0 +1,26 @@
+
+POST http://localhost:3000/api/events-login
+Content-Type : application/json
+
+{
+    "title": "evento numero 1",
+    "description": "este es el evento numero 1" ,
+    "dates": [ "2021-07-28T22:00:00.081+00:00" , "2021-07-29T22:00:00.081+00:00"],
+    "place": "en la plaza 25 de mayo",
+    "image": "http://#"
+}
+
+###
+
+
+POST http://localhost:3000/api/events-login
+Content-Type : application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMDc2ODUxMzJkYzQzMjQ5OGU1MGY1YSIsInVzZXJuYW1lIjoiYXpheGhlbCIsImlhdCI6MTYyNzg3NTU3MiwiZXhwIjoxNjI4NDgwMzcyfQ.fQKPYZXWSz6Vu2XvzoxE907tTxOTvx9QtZli-N4WGQA
+
+{
+    "title" : "PONCHO 4", 
+    "description" : "festival en el que se venden variadas artesanias", 
+    "dates" : ["2021-07-28T22:44:33.081+00:00", "2021-07-28T22:44:33.081+00:00"], 
+    "place" : "frente del estadio", 
+    "image" : "http://#"
+}

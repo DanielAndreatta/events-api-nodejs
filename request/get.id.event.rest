@@ -1,0 +1,1 @@
+GET http://localhost:3000/api/events/61077907db34f728583368f0

@@ -10,25 +10,30 @@ const eventsController = require('../controllers/eventsController');
 
 module.exports = function(){
 
-    // login
-    // router.get('/events', userExtractor , eventsController.showEventsPaged);
-    
-    // , userExtractor
-    router.post('/events' , eventsController.createEvent);
-
-    // no login
     router.get('/', (request, response) => {
         response.send('<h1>Hello Word</h1>')
     })
-    
-    router.get('/events',eventsController.showAllEvents);
-    
 
-    // router.get('/events/share', eventsController.shareEvent);
+    // login
+
+    router.get('/events-login', userExtractor , eventsController.showEventsPaged);
+    
+    // , userExtractor
+    router.post('/events-login', userExtractor , eventsController.createEvent);
+
+    // no login
+
+    router.get('/events',eventsController.showAllEvents);
+
+    router.get('/events-share/:id', eventsController.shareEvent);
+
+    router.get('/events/:id', eventsController.showEventById);
+
+    
 
     // router.get('/events/outstanding', eventsController.showEventsOutstanding);
 
-    // router.get('/events/:id', eventsController.showEventById);
+    
 
     return router;
 }

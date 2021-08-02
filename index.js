@@ -2,7 +2,9 @@ require('dotenv').config();
 require('./mongo');
 
 const express = require('express');
-const routes = require('./routes/eventsRoutes');
+const routesEvents = require('./routes/eventsRoutes');
+const routesUsers = require('./routes/usersRoutes');
+const routesLogin = require('./routes/loginRouters');
 const app = express();
 const cors = require('cors');
 
@@ -18,7 +20,11 @@ app.use(express.json());
 //     response.send('<h1>Hello Word</h1>')
 // })
 
-app.use('/api/',routes());
+app.use('/api/',routesEvents());
+
+app.use('/api/',routesUsers());
+
+app.use('/api/',routesLogin());
 
 app.use(notFound);
 app.use(handleErrors);
