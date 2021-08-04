@@ -20,7 +20,9 @@ const ERROR_HANDLERS = {
         }),
     
     defaultError: res =>
-        res.status(500).end()
+        res.status(500).send({
+            error: message
+        })
 }
 
 

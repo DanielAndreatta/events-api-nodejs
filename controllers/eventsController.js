@@ -18,7 +18,7 @@ exports.showAllEvents = async (request, response, next) => {
     
     try {
         
-        const events = await Event.find({})
+        const events = await Event.find({}).sort({dates: 1});
         response.json(events)
 
     } catch (error) {
@@ -75,13 +75,32 @@ exports.createEvent = async(request,response,next) => {
 
     try {
 
+
         const user = await User.findById(userId);
+
+        if(!user ){
+            return response.status(400).json({
+                error: 'no user logged in'
+            });
+        }
 
         if(!title || !description || !dates || !place || !image ){
             return response.status(400).json({
                 error: 'a required field is missing'
             });
         }
+
+        const newDate = new Date()
+        dates.forEach(element => {
+            if(new Date(element).getTime() < new Date(newDate).getTime())
+                response.status(400).json({
+                    error: 'date is not correct'
+                });
+        });
+
+        
+        dates.sort((a,b) => new Date(a).getTime() - new Date(b).getTime())
+        
     
         const newEvent = new Event({
     
@@ -104,6 +123,8 @@ exports.createEvent = async(request,response,next) => {
     }
     
 };
+
+
 
 exports.shareEvent = async(request,response,next) => {
 
