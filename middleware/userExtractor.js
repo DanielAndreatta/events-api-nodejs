@@ -7,9 +7,8 @@ module.exports = (req, res, next) => {
 
     if(authorization && authorization.toLowerCase().startsWith(process.env.SECRET2)){
         token = authorization.substring(7);
-    }
+    };
 
-    
     const decodedToken = jwt.verify(token, process.env.SECRET);
 
     if(!token || !decodedToken.id){
