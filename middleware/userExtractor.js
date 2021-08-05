@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     const authorization = req.get('authorization');
     let token = '';
 
-    if(authorization && authorization.toLowerCase().startsWith('bearer')){
+    if(authorization && authorization.toLowerCase().startsWith(process.env.SECRET2)){
         token = authorization.substring(7);
     }
 
