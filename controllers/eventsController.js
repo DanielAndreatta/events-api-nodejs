@@ -73,16 +73,10 @@ exports.createEvent = async(request,response,next) => {
     const {title, description, dates, place, image} = request.body;
     const {userId} = request;
 
+    
     try {
 
-
         const user = await User.findById(userId);
-
-        if(!user ){
-            return response.status(400).json({
-                error: 'no user logged in'
-            });
-        }
 
         if(!title || !description || !dates || !place || !image ){
             return response.status(400).json({
@@ -90,31 +84,39 @@ exports.createEvent = async(request,response,next) => {
             });
         }
 
+        let flag = 0
+        
+        // verificar fecha a ingresar
         const newDate = new Date()
         dates.forEach(element => {
             if(new Date(element).getTime() < new Date(newDate).getTime())
-                response.status(400).json({
-                    error: 'date is not correct'
-                });
+                flag = 1     
         });
 
+        if(flag === 1) 
+            return response.status(400).json({
+                error: 'date is not correct'
+            })
         
-        dates.sort((a,b) => new Date(a).getTime() - new Date(b).getTime())
         
-    
+        dates.sort()
+        
         const newEvent = new Event({
-    
+
             title,
             description,
             dates,
             place,
             outstanding : "no",
             image,
-            user: user._id 
+            user: user._id
         });
 
+
         const savedEvent = await newEvent.save();
+
         user.events = user.events.concat(savedEvent._id);
+
         await user.save();
         response.status(201).json(savedEvent);
 
@@ -123,7 +125,77 @@ exports.createEvent = async(request,response,next) => {
     }
     
 };
+// exports.createEvent = async(req,res,next) => {
 
+//     const {title, description, dates, place, image} = req.body;
+//     const {userId} = req;
+
+//     const user = await User.findById(userId);
+
+//     if(!title || !description || !dates || !place || !image){
+//         return res.status(400).json({
+//             error: 'Falta un campo obligatorio'
+//         });
+//     }
+
+//     let flag = 0;
+
+//     dates.forEach(date => {
+
+//         if(!(new Date(date).getTime() > new Date().getTime())){
+//             flag = 1;
+//         }
+
+//     });
+
+//     if(flag === 1){
+//         return res.status(400).json({
+//             error: 'the date is not correct'
+//         });
+//     }
+
+//     dateList.sort();
+
+
+//     const newEvent = new Event({
+
+//         title,
+//         description,
+//         dateList,
+//         place,
+//         outstanding: 'No',
+//         image,
+//         user: user._id
+//     });
+
+//     try {
+//         const savedEvent = await newEvent.save();
+//         user.events = user.events.concat(savedEvent._id);
+//         await user.save();
+//         res.status(201).json(savedEvent);
+//     } catch (error) {
+//         next(error);
+//     }
+
+// };
+
+exports.showEventById = async(req,res,next) => {
+
+    try {
+
+        const {id} = req.params;
+        const eventFound = await Event.findById(id);
+        if(eventFound){
+            return res.json(eventFound);
+        }else{
+            res.status(404).end();
+        }
+
+    } catch (error) {
+        next(error);
+    }
+
+};
 
 
 exports.shareEvent = async(request,response,next) => {
