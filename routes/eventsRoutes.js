@@ -14,7 +14,6 @@ module.exports = function(){
 
     router.get('/events-login', userExtractor , eventsController.showEventsPaged);
     
-    // , userExtractor
     router.post('/events-login', userExtractor , eventsController.createEvent);
 
     // no login
