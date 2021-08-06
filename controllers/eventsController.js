@@ -159,7 +159,7 @@ exports.shareEvent = async(request,response,next) => {
         const {_id,title,dates} = await Event.findById(id);
         const url = `http://${request.headers.host}/api/events/${_id}`;
         const message = {
-            message : `Iré al ${title} @ ${dates[0]} ${url}`
+            message : ` Iré al ${title} @ ${dates[0]} ${url} `
         };
         response.json(message);
     
