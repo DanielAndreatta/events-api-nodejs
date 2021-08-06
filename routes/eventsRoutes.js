@@ -23,6 +23,8 @@ module.exports = function(){
 
     // no login
 
+    router.get('/events/outstanding', eventsController.showEventsOutstanding);
+    
     router.get('/events',eventsController.showAllEvents);
 
     router.get('/events-share/:id', eventsController.shareEvent);
@@ -30,8 +32,6 @@ module.exports = function(){
     router.get('/events/:id', eventsController.showEventById);
 
     
-
-    // router.get('/events/outstanding', eventsController.showEventsOutstanding);
 
     
 

@@ -4,11 +4,16 @@ const ERROR_HANDLERS = {
             error: 'La identificación utilizada está mal formada'
         }),
 
+    TypeError: res =>
+        res.status(400).send({
+            error: 'La identificación utilizada no existe'
+        }),
+
     ValidationError: (res, {message}) => 
         res.status(409).send({
             error: message
         }),
-    
+
     JsonWebTokenError: res =>
         res.status(401).json({
             error: 'usuario o contraseña inválidos'

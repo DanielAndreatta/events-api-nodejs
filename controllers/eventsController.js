@@ -13,7 +13,7 @@ const User = require('../models/User')
 
 
 
-// muestra todos los eventos
+// muestra todos los eventos ordenados por fecha
 exports.showAllEvents = async (request, response, next) => {
     
     try {
@@ -28,6 +28,7 @@ exports.showAllEvents = async (request, response, next) => {
 };
 
 
+// mostrar un evento
 exports.showEventById = async(request ,response ,next) => {
 
     try {
@@ -47,6 +48,7 @@ exports.showEventById = async(request ,response ,next) => {
 };
 
 
+// mostrar eventos paginados del usuario logueado 
 exports.showEventsPaged = async (request, response, next) => {
   
     try {
@@ -66,6 +68,27 @@ exports.showEventsPaged = async (request, response, next) => {
 
 };
 
+// mostrar eventos destacados (para considerarse destacado el atributo outstanding es igual a 5)
+exports.showEventsOutstanding = async(request,response,next) => {
+
+    try {
+
+        
+        const { limit = 10, skip = 0 } = request.query;
+
+        const [total, events] = await Promise.all([
+            Event.countDocuments(),
+            Event.find({outstanding:5}).skip(Number(skip)).limit(Number(limit))
+           
+        ]);
+
+        return response.json({ total, events });
+
+    } catch (error) {
+        next(error)
+    }
+
+};
 
 // crear un evento
 exports.createEvent = async(request,response,next) => {
@@ -107,7 +130,7 @@ exports.createEvent = async(request,response,next) => {
             description,
             dates,
             place,
-            outstanding : "no",
+            outstanding : Number(Math.floor(Math.random()*5)),
             image,
             user: user._id
         });
@@ -125,79 +148,9 @@ exports.createEvent = async(request,response,next) => {
     }
     
 };
-// exports.createEvent = async(req,res,next) => {
-
-//     const {title, description, dates, place, image} = req.body;
-//     const {userId} = req;
-
-//     const user = await User.findById(userId);
-
-//     if(!title || !description || !dates || !place || !image){
-//         return res.status(400).json({
-//             error: 'Falta un campo obligatorio'
-//         });
-//     }
-
-//     let flag = 0;
-
-//     dates.forEach(date => {
-
-//         if(!(new Date(date).getTime() > new Date().getTime())){
-//             flag = 1;
-//         }
-
-//     });
-
-//     if(flag === 1){
-//         return res.status(400).json({
-//             error: 'the date is not correct'
-//         });
-//     }
-
-//     dateList.sort();
 
 
-//     const newEvent = new Event({
-
-//         title,
-//         description,
-//         dateList,
-//         place,
-//         outstanding: 'No',
-//         image,
-//         user: user._id
-//     });
-
-//     try {
-//         const savedEvent = await newEvent.save();
-//         user.events = user.events.concat(savedEvent._id);
-//         await user.save();
-//         res.status(201).json(savedEvent);
-//     } catch (error) {
-//         next(error);
-//     }
-
-// };
-
-exports.showEventById = async(req,res,next) => {
-
-    try {
-
-        const {id} = req.params;
-        const eventFound = await Event.findById(id);
-        if(eventFound){
-            return res.json(eventFound);
-        }else{
-            res.status(404).end();
-        }
-
-    } catch (error) {
-        next(error);
-    }
-
-};
-
-
+// compartir evento en twiter
 exports.shareEvent = async(request,response,next) => {
 
     try {
@@ -209,11 +162,11 @@ exports.shareEvent = async(request,response,next) => {
             message : `Iré al ${title} @ ${dates[0]} ${url}`
         };
         response.json(message);
-
+    
     } catch (error) {
         next(error);
     }
 
-}
+};
 
 

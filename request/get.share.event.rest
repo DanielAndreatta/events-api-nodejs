@@ -2,4 +2,4 @@ GET http://localhost:3000/api/events-share/61077907db34f728583368f0
 
 ###
 
-GET http://localhost:3000/api/events-share/61077907db34f728583368f0
+GET http://localhost:3000/api/events-share/610c9ac0056fb321f0786c56
