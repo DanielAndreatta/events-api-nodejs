@@ -30,10 +30,10 @@ Devuelve un mensaje con informacion del evento correspondiente, para compartir e
 Retorna todos los eventos destacados, tiene dos parametros opcinales (`limit` y `skip`)
 
 Ejemplos 
-/api/events/outstanding
-/api/events/outstanding?limit=10
-/api/events/outstanding?skip=2
-/api/events/outstanding?limit=10&skip=1
+`/api/events/outstanding`
+`/api/events/outstanding?limit=10`
+`/api/events/outstanding?skip=2`
+`/api/events/outstanding?limit=10&skip=1`
 
 ---
 
@@ -42,10 +42,10 @@ Ejemplos
 Retorna todos los eventos del usuario logueado, tiene dos parametros opcinales (`limit` y `skip`)
 
 Ejemplos 
-/api/events-login
-/api/events-login?limit=10
-/api/events-login?skip=2
-/api/events-login?limit=10&skip=1
+`/api/events-login`
+`/api/events-login?limit=10`
+`/api/events-login?skip=2`
+`/api/events-login?limit=10&skip=1`
 
 ---
 
