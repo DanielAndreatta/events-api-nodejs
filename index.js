@@ -5,6 +5,7 @@ const express = require('express');
 const routesEvents = require('./routes/eventsRoutes');
 const routesUsers = require('./routes/usersRoutes');
 const routesLogin = require('./routes/loginRouters');
+const routesFront = require('./routes/frontRouters');
 const app = express();
 const cors = require('cors');
 
@@ -19,6 +20,8 @@ app.use(express.json());
 // app.get('/', (request, response) => {
 //     response.send('<h1>Hello Word</h1>')
 // })
+
+app.use('/',routesFront());
 
 app.use('/api/',routesEvents());
 

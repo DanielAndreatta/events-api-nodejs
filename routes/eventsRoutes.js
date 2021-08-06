@@ -10,10 +10,6 @@ const eventsController = require('../controllers/eventsController');
 
 module.exports = function(){
 
-    router.get('/', (request, response) => {
-        response.send('<h1>Hello Word</h1>')
-    })
-
     // login
 
     router.get('/events-login', userExtractor , eventsController.showEventsPaged);
